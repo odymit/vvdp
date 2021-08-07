@@ -1,5 +1,5 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import String, Column, Integer, Float, VARCHAR,UnicodeText,Text,DateTime
+from sqlalchemy import String, Column, Integer, Float, VARCHAR, Text,DateTime
 import datetime
 Base = declarative_base()
 
@@ -14,9 +14,9 @@ class VulList(Base):
     id = Column(Integer, primary_key=True, nullable=False)
     cve_id = Column(VARCHAR(255), unique=True, nullable=False)
     cnnvd_id = Column(VARCHAR(255), nullable=True)
-    description = Column(UnicodeText, nullable=False)
-    vul_unit = Column(UnicodeText, nullable=False)
-    affected_unit = Column(UnicodeText, nullable=False)
+    description = Column(Text, nullable=False)
+    vul_unit = Column(Text, nullable=False)
+    affected_unit = Column(Text, nullable=False)
     attack_vector = Column(VARCHAR(1), nullable=False)
     attack_complexity = Column(VARCHAR(1), nullable=False)
     priviledge_required = Column(VARCHAR(1), nullable=False)
