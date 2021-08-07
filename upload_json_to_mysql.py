@@ -9,11 +9,11 @@ import sys
 sys.path.append("../vvdp/")
 from vvdb.dto import  UserList, UserOpLog, VulList
 
-engine = create_engine("mysql+pymysql://root:12345689asd...@39.103.238.35:3306/vvdb?charset=utf-8")
+engine = create_engine('mysql+pymysql://root:123456789asd...@39.103.238.35:3306/vvdb?charset=utf8')
 Session = sessionmaker(bind=engine)
 db = Session()
 print(db)
-with open("../vvdp/full_data.json", 'r') as f:
+with open("full_data.json", 'r') as f:
     data = json.load(f)
 
 for each in data:
@@ -29,11 +29,9 @@ for each in data:
                      user_interaction=each['UI'], confidential=each['C'], integration=each['I'], 
                      available=each['A'], privacy=each['P'], ecnomic=each['E'], functional=each['F'], 
                      human_safety=each['HI'], scope=each['S'], cvss_score=each['cvss_score'], 
-                     cvss_version=each['cvss_version'], link=each['link'], date=datetime.datetime.now()
+                     cvss_version=each['cvss_version'], link=each['link'], date= datetime.datetime.now()
                      )
     db.add(new_vul)
 db.commit()
-#data = db.query(VulList).first()
-#print(db, data)
 db.close()
 print("db session closed.")
