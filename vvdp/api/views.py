@@ -6,7 +6,16 @@ from django.db import models
 import meilisearch
 import json
 
-search_client = meilisearch.Client('http://127.0.0.1:7700')
+def get_meilisearch():
+    sess =  meilisearch.Client('http://127.0.0.1:7700')
+    print(dir(sess))
+    print(sess.is_healthy())
+    if sess.is_healthy():
+        return sess
+    else:
+        return None
+
+search_client = get_meilisearch()
 
 class DateEncoder(json.JSONEncoder):
     def default(self,obj):
@@ -27,11 +36,18 @@ def format(data=[], code = 20060, msg = 'success'):
 
 @require_http_methods(['POST'])
 def search(request):
+    global search_client
     postBody = request.body
     json_result = json.loads(postBody)
     # print(json_result)
     keyword = json_result['keyword']
     # print(keyword)
+    trytimes = 3
+    while(( search_client is None) and (trytimes > 0)):
+        trytimes -= 1
+        print("meilisearch not connected, try to reconnect, " + str(trytimes) + " times left.")
+        search_client = get_meilisearch()
+
     try:
         res = search_client.index('vulnerabilities').search(keyword)
         print(res, type(res))
