@@ -4,6 +4,7 @@ vvdp is a simple vulnerability display platform, and the techs we used are list 
 - Backend: Django
 - Search: meilisearch
 
+The `vue-admin-template` can be found [here](https://github.com/PanJiaChen/vue-admin-template).
 ## requirements
 ```
 Python 3.10.4
